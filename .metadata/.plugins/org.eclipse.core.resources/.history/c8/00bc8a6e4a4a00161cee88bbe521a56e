@@ -1,0 +1,58 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
+
+public class Main {
+	public static void main(String[] args) {
+//		File file = new File("E:\\Vlog.txt");
+//		try {
+//			FileInputStream reader = new FileInputStream(file);
+//			byte[] data = new byte[1024];
+//			reader.read(data, 0, 92);
+//			System.out.println(Arrays.toString(data));
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} 
+//		System.out.println(Arrays.toString("20144583".getBytes()));
+//		System.out.println(Arrays.toString("20156072".getBytes()));
+//		System.out.println(Arrays.toString("password".getBytes()));
+//		System.out.println(Arrays.toString("960104".getBytes()));
+//
+		String username = "20144583";
+		String password = "password";
+		byte[] data = new byte[84 + password.length()];
+		byte[] temp1 = {-128, 1, 0, 1, 0, 0, 0, 5, 108, 111, 103, 105, 110, 0, 0, 0, 1, 12, 0, 1, 10, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 3, 0, 0, 0, 6, 11, 0, 4, 0, 0, 0, 8};
+		byte[] usernameByte = username.getBytes();
+		byte[] temp2 = {11, 0, 5, 0, 0, 0, 6};
+		temp2[6] = (byte) password.length();
+		byte[] passwordByte = password.getBytes();
+		byte[] temp3 = {0, 10, 0, 2, -1, -1, -1, -1, -1, -1, -1, -1, 0};
+		int index = 0;
+		for(byte b : temp1){
+			data[index++] = b;
+		}
+		for(byte b : usernameByte){
+			data[index++] = b;
+		}
+		for(byte b : temp2){
+			data[index++] = b;
+		}
+		for(byte b : passwordByte){
+			data[index++] = b;
+		}
+		for(byte b : temp3){
+			data[index++] = b;
+		}
+      byte[] bytes = new byte[]{-128, 1, 0, 1, 0, 0, 0, 5, 108, 111, 103, 105, 110, 0, 0, 0, 1, 12, 0, 1, 10, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 3, 0, 0, 0, 6, 11, 0, 4, 0, 0, 0, 8, 50, 48, 49, 52, 52, 53, 56, 51, 11, 0, 5, 0, 0, 0, 8, 112, 97, 115, 115, 119, 111, 114, 100, 0, 10, 0, 2, -1, -1, -1, -1, -1, -1, -1, -1, 0};
+		System.out.println(Arrays.toString(data));
+		System.out.println(Arrays.equals(bytes, data));
+		
+	}
+
+}
