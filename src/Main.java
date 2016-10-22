@@ -43,7 +43,14 @@ import util.InputScanner;
 
  drop table Student
 
- create view myview as select name,grade from Student where id=11 or grade=66
+ create unique index student id
+ create index student name
+
+ show index student
+
+ delete index student id
+
+ drop index student id
 
  *
  *

@@ -16,7 +16,10 @@ public class CommandHandleHolder {
     private static AlterDropCommandHandle alterDropCommandHandle;
     private static UpdateCommandHandle updateCommandHandle;
     private static DeleteCommandHandle deleteCommandHandle;
-    private static CreateViewCommandHandle createViewCommandHandle;
+    private static CreateMainIndexCommandHandle createMainIndexCommandHandle;
+    private static CreateIndexCommandHandle createIndexCommandHandle;
+    private static ShowIndexCommandHandle showIndexCommandHandle;
+    private static DeleteIndexCommandHandle deleteIndexCommandHandle;
 
 
     static {
@@ -28,7 +31,10 @@ public class CommandHandleHolder {
         alterDropCommandHandle = new AlterDropCommandHandle();
         updateCommandHandle = new UpdateCommandHandle();
         deleteCommandHandle = new DeleteCommandHandle();
-        createViewCommandHandle = new CreateViewCommandHandle();
+        createMainIndexCommandHandle = new CreateMainIndexCommandHandle();
+        createIndexCommandHandle = new CreateIndexCommandHandle();
+        showIndexCommandHandle = new ShowIndexCommandHandle();
+        deleteIndexCommandHandle = new DeleteIndexCommandHandle();
     }
 
 
@@ -50,9 +56,14 @@ public class CommandHandleHolder {
                 return updateCommandHandle;
             case DELETE:
                 return deleteCommandHandle;
-            case CREATE_VIEW:
-                return createViewCommandHandle;
-
+            case CREATE_MAIN_INDEX:
+                return createMainIndexCommandHandle;
+            case CREATE_INDEX:
+                return createIndexCommandHandle;
+            case SHOW_INDEX:
+                return showIndexCommandHandle;
+            case DELETE_INDEX:
+                return deleteIndexCommandHandle;
         }
         return createCommandHandle;
     }
@@ -89,7 +100,4 @@ public class CommandHandleHolder {
         return deleteCommandHandle;
     }
 
-    public static CreateViewCommandHandle getCreateViewCommandHandle() {
-        return createViewCommandHandle;
-    }
 }

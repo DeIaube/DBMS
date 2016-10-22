@@ -11,8 +11,16 @@ public class DbList {
 
     private List<Map<String, String>> dataList;
 
-    //属性列表
+    //属性名称列表
     private List<String> itemList;
+
+    private List<String> indexNameList;
+
+    private TreeMap<String, Map<String, String>> mainIndex;
+
+    private Map<String, TreeMap<String, Map<String, String>>> index;
+
+    private String mainIndexName;
 
     public void setItemMap(LinkedHashMap<String, String> itemMap) {
         this.itemMap = itemMap;
@@ -30,12 +38,61 @@ public class DbList {
         itemMap = new LinkedHashMap<>();
         dataList = new ArrayList<>();
         itemList = new ArrayList<>();
+        indexNameList = new ArrayList<>();
+        index = new HashMap<>();
+    }
 
+    public boolean hasMainIndex(){
+        return mainIndexName != null;
+    }
+
+    public List<String> getIndexNameList() {
+        return indexNameList;
+    }
+
+    public boolean isIndex(String name){
+        if(mainIndexName != null && mainIndexName.equals(name)){
+            return true;
+        }
+
+        return indexNameList.contains(name);
+    }
+
+    public void addIndex(String indexName, TreeMap<String, Map<String, String>> indexMap){
+        indexNameList.add(indexName);
+        index.put(indexName, indexMap);
+    }
+
+    public String getMainIndexName() {
+        return mainIndexName;
+    }
+
+    public TreeMap<String, Map<String, String>> getMainIndex() {
+        return mainIndex;
+    }
+
+    public void setMainIndex(TreeMap<String, Map<String, String>> mainIndex) {
+        this.mainIndex = mainIndex;
+    }
+
+    public void setMainIndexName(String mainIndexName) {
+        this.mainIndexName = mainIndexName;
     }
 
     public Map<String, String> getItemMap() {
         return itemMap;
     }
+
+    public void removeMainIndex(){
+        mainIndexName = null;
+        mainIndex = null;
+    }
+
+    public void removeIndex(String indeName){
+        indexNameList.remove(indeName);
+        index.remove(indeName);
+    }
+
 
 
     public List<Map<String, String>> getDataList() {
