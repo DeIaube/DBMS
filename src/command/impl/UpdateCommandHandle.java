@@ -1,11 +1,11 @@
 package command.impl;
 
+import bean.Item;
 import command.BaseCommand;
 import exception.NoParamException;
 import util.JudgeUtil;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by null on 2016/10/9.
@@ -16,7 +16,7 @@ public class UpdateCommandHandle extends BaseCommand {
     public void handleCommand(String command) throws Exception {
         initDbList();
         String updateData = commands[2];
-        List<Map<String, String>> updateList = JudgeUtil.judgeEquel(dbList, command);
+        List<Item> updateList = JudgeUtil.judgeEquel(dbList, command);
         String[] updataDatas = updateData.split("\\,");
         for (String updataData : updataDatas) {
             String[] split = updataData.split("=");
@@ -26,7 +26,7 @@ public class UpdateCommandHandle extends BaseCommand {
         }
         for (String updataData : updataDatas) {
             String[] split = updataData.split("=");
-            for (Map<String, String> map : updateList) {
+            for (Item map : updateList) {
                 map.put(split[0], split[1]);
             }
         }

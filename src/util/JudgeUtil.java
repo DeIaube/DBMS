@@ -1,21 +1,23 @@
 package util;
 
 import bean.DbList;
+import bean.Item;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Lu on 2016/10/11.
  */
 public class JudgeUtil {
 
-
-    public static List<Map<String, String>> judgeEquel(DbList dataList, String conditions){
+    public static List<Item> judgeEquel(DbList dataList, String conditions){
         if(!conditions.contains("where")){
             return dataList.getDataList();
         }
+//        if(!conditions.substring(conditions.indexOf("where")-1, conditions.length()).contains("=")){
+//            return dataList.getDataList();
+//        }
 
         conditions = handleConditions(conditions);
 
@@ -30,11 +32,11 @@ public class JudgeUtil {
 
     }
 
-    private static List<Map<String, String>> andConditionsJudge(DbList dataList, String condition) {
+    private static List<Item> andConditionsJudge(DbList dataList, String condition) {
         String[] conditions = condition.split(" and ");
-        List<Map<String, String>> result = singleConditionsJudge(dataList, conditions[0]);
+        List<Item> result = singleConditionsJudge(dataList, conditions[0]);
         for (String s : conditions) {
-            List<Map<String, String>> maps = singleConditionsJudge(dataList, s);
+            List<Item> maps = singleConditionsJudge(dataList, s);
             if(maps == null){
                 return null;
             }
@@ -48,11 +50,11 @@ public class JudgeUtil {
         return result;
     }
 
-    private static List<Map<String, String>> orConditionsJudge(DbList dataList, String condition) {
+    private static List<Item> orConditionsJudge(DbList dataList, String condition) {
         String[] conditions = condition.split(" or ");
-        List<Map<String, String>> result = new ArrayList<>();
+        List<Item> result = new ArrayList<>();
         for (String s : conditions) {
-            List<Map<String, String>> maps = singleConditionsJudge(dataList, s);
+            List<Item> maps = singleConditionsJudge(dataList, s);
             if(maps == null){
                 return null;
             }
@@ -61,13 +63,13 @@ public class JudgeUtil {
         return result;
     }
 
-    private static List<Map<String, String>> singleConditionsJudge(DbList dataList, String conditions) {
-        List<Map<String, String>> resule = new ArrayList<>();
+    private static List<Item> singleConditionsJudge(DbList dataList, String conditions) {
+        List<Item> resule = new ArrayList<>();
         String[] split = conditions.split("=");
         String key = split[0];
         String value = split[1];
 
-        for (Map<String, String> stringStringMap : dataList.getDataList()) {
+        for (Item stringStringMap : dataList.getDataList()) {
             if(!dataList.getItemList().contains(key)){
                 //不包含的元素
                 return null;

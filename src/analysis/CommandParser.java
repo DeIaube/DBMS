@@ -17,6 +17,9 @@ public class CommandParser {
                 }
                 return Command.CREATE_INDEX;
             }
+            if(command.contains("user")){
+                return Command.CREATE_USER;
+            }
             return Command.CREATE;
         }
         if(command.startsWith("delete")){
@@ -26,6 +29,9 @@ public class CommandParser {
             return Command.DELETE;
         }
         if(command.startsWith("update")){
+            if(command.contains("key")){
+                return Command.UPDATE_KEY;
+            }
             return Command.UPDATE;
         }
         if(command.startsWith("drop")){
@@ -48,6 +54,12 @@ public class CommandParser {
         }
         if(command.startsWith("show")){
             return Command.SHOW_INDEX;
+        }
+        if(command.startsWith("exit")){
+            return Command.EXIT;
+        }
+        if(command.startsWith("permisson")){
+            return Command.PERMISSON;
         }
         return Command.ERROR;
     }

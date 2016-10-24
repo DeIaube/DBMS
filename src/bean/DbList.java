@@ -9,16 +9,26 @@ public class DbList {
     private LinkedHashMap<String, String> itemMap;
     private String name;
 
-    private List<Map<String, String>> dataList;
+    private List<Item> dataList;
+
+    private String key = null;
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public String getKey() {
+        return key;
+    }
 
     //属性名称列表
     private List<String> itemList;
 
     private List<String> indexNameList;
 
-    private TreeMap<String, Map<String, String>> mainIndex;
+    private TreeMap<String, Item> mainIndex;
 
-    private Map<String, TreeMap<String, Map<String, String>>> index;
+    private Map<String, TreeMap<String, List<Item>>> index;
 
     private String mainIndexName;
 
@@ -58,7 +68,7 @@ public class DbList {
         return indexNameList.contains(name);
     }
 
-    public void addIndex(String indexName, TreeMap<String, Map<String, String>> indexMap){
+    public void addIndex(String indexName, TreeMap<String, List<Item>> indexMap){
         indexNameList.add(indexName);
         index.put(indexName, indexMap);
     }
@@ -67,11 +77,11 @@ public class DbList {
         return mainIndexName;
     }
 
-    public TreeMap<String, Map<String, String>> getMainIndex() {
+    public TreeMap<String, Item> getMainIndex() {
         return mainIndex;
     }
 
-    public void setMainIndex(TreeMap<String, Map<String, String>> mainIndex) {
+    public void setMainIndex(TreeMap<String, Item> mainIndex) {
         this.mainIndex = mainIndex;
     }
 
@@ -88,6 +98,10 @@ public class DbList {
         mainIndex = null;
     }
 
+    public Map<String, TreeMap<String, List<Item>>> getIndex() {
+        return index;
+    }
+
     public void removeIndex(String indeName){
         indexNameList.remove(indeName);
         index.remove(indeName);
@@ -95,11 +109,11 @@ public class DbList {
 
 
 
-    public List<Map<String, String>> getDataList() {
+    public List<Item> getDataList() {
         return dataList;
     }
 
-    public void setDataList(List<Map<String, String>> dataList) {
+    public void setDataList(List<Item> dataList) {
         this.dataList = dataList;
     }
 
@@ -119,7 +133,7 @@ public class DbList {
         this.name = name;
     }
 
-    public void addData(Map<String, String> dataMap){
-        dataList.add(dataMap);
+    public void addData(Item item){
+        dataList.add(item);
     }
 }

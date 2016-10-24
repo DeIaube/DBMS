@@ -1,12 +1,13 @@
 package command.impl;
 
+import bean.Item;
 import command.BaseCommand;
 import exception.NoParamException;
 import exception.SyntaxException;
+import util.IndexUtil;
 import util.JudgeUtil;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Lu on 2016/10/11.
@@ -19,12 +20,16 @@ public class DeleteCommandHandle extends BaseCommand {
     @Override
     public void handleCommand(String command) throws Exception {
         initDbList();
-        List<Map<String, String>> deleteList = JudgeUtil.judgeEquel(dbList, command);
+        List<Item> deleteList = JudgeUtil.judgeEquel(dbList, command);
         if(deleteList == null){
             throw new NoParamException();
         }
 
         dbList.getDataList().removeAll(deleteList);
+
+        for (Item item : deleteList) {
+            IndexUtil.removeItem(dbList, item);
+        }
     }
 
     @Override

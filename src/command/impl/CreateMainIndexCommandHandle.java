@@ -1,12 +1,12 @@
 package command.impl;
 
+import bean.Item;
 import command.BaseCommand;
 import exception.ExistingMainIndexException;
 import exception.NoParamException;
 import exception.SyntaxException;
 
 import java.util.List;
-import java.util.Map;
 import java.util.TreeMap;
 
 /**
@@ -27,9 +27,9 @@ public class CreateMainIndexCommandHandle extends BaseCommand {
             throw new NoParamException();
         }
 
-        List<Map<String, String>> dataList = dbList.getDataList();
-        TreeMap<String, Map<String, String>> mainIndexData = new TreeMap<>();
-        for (Map<String, String> map : dataList) {
+        List<Item> dataList = dbList.getDataList();
+        TreeMap<String, Item> mainIndexData = new TreeMap<>();
+        for (Item map : dataList) {
             String key = map.get(mainIndexName);
             mainIndexData.put(key, map);
         }

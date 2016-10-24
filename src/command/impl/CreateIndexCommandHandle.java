@@ -1,12 +1,12 @@
 package command.impl;
 
+import bean.Item;
 import command.BaseCommand;
 import exception.ExistingIndexException;
 import exception.NoParamException;
 import exception.SyntaxException;
 
 import java.util.List;
-import java.util.Map;
 import java.util.TreeMap;
 
 /**
@@ -26,11 +26,15 @@ public class CreateIndexCommandHandle  extends BaseCommand{
             throw new ExistingIndexException();
         }
 
-        List<Map<String, String>> dataList = dbList.getDataList();
-        TreeMap<String, Map<String, String>> indexMap = new TreeMap<>();
-        for (Map<String, String> map : dataList) {
-            String key = map.get(indexName);
-            indexMap.put(key, map);
+        List<Item> dataList = dbList.getDataList();
+        TreeMap<String, List<Item>> indexMap = new TreeMap<>();
+        for (Item item : dataList) {
+            String key = item.get(indexName);
+            List<Item> itemList = indexMap.get(key);
+            if(itemList == null){
+                indexMap.put(key, itemList);
+            }
+            itemList.add(item);
         }
         dbList.addIndex(indexName, indexMap);
     }

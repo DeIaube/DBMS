@@ -16,5 +16,9 @@ public enum Command {
     CREATE_INDEX,
     DELETE_INDEX,
     CREATE_MAIN_INDEX,
-    SHOW_INDEX
+    SHOW_INDEX,
+    UPDATE_KEY,
+    EXIT,
+    CREATE_USER,
+    PERMISSON
 }

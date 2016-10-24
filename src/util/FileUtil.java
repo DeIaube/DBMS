@@ -26,6 +26,21 @@ public class FileUtil {
         return true;
     }
 
+    public static boolean writeToFile(UserContainer userContainer) throws IOException {
+        String data = new Gson().toJsonTree(userContainer, DbList.class).toString();
+        String name = "User";
+        String filePath = path + name;
+        File file = new File(filePath);
+        if(file.exists()){
+            return false;
+        }
+
+        OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(file));
+        writer.write(data);
+        writer.close();
+        return true;
+    }
+
     public static String readFromFile(String name) throws IOException {
         String filePath = path + name;
         File file = new File(filePath);
@@ -47,6 +62,16 @@ public class FileUtil {
     public static void coverToFile(DbList dbList) throws IOException {
         String data = new Gson().toJsonTree(dbList, DbList.class).toString();
         String name = dbList.getName();
+        String filePath = path + name;
+        File file = new File(filePath);
+        OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(file));
+        writer.write(data);
+        writer.close();
+    }
+
+    public static void coverToFile(UserContainer userContainer) throws IOException {
+        String data = new Gson().toJsonTree(userContainer, UserContainer.class).toString();
+        String name = "User";
         String filePath = path + name;
         File file = new File(filePath);
         OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(file));

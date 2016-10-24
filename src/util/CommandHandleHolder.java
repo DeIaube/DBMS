@@ -20,6 +20,10 @@ public class CommandHandleHolder {
     private static CreateIndexCommandHandle createIndexCommandHandle;
     private static ShowIndexCommandHandle showIndexCommandHandle;
     private static DeleteIndexCommandHandle deleteIndexCommandHandle;
+    private static UpdateKeyCommandHandle updateKeyCommandHandle;
+    private static ExitCommandHandle exitCommandHandle;
+    private static CreateUserCommandHandle createUserCommandHandle;
+    private static PermissonChangeCommandHandle permissonChangeCommandHandle;
 
 
     static {
@@ -35,6 +39,10 @@ public class CommandHandleHolder {
         createIndexCommandHandle = new CreateIndexCommandHandle();
         showIndexCommandHandle = new ShowIndexCommandHandle();
         deleteIndexCommandHandle = new DeleteIndexCommandHandle();
+        updateKeyCommandHandle = new UpdateKeyCommandHandle();
+        exitCommandHandle = new ExitCommandHandle();
+        createUserCommandHandle = new CreateUserCommandHandle();
+        permissonChangeCommandHandle = new PermissonChangeCommandHandle();
     }
 
 
@@ -64,6 +72,14 @@ public class CommandHandleHolder {
                 return showIndexCommandHandle;
             case DELETE_INDEX:
                 return deleteIndexCommandHandle;
+            case UPDATE_KEY:
+                return updateKeyCommandHandle;
+            case CREATE_USER:
+                return createUserCommandHandle;
+            case EXIT:
+                return exitCommandHandle;
+            case PERMISSON:
+                return permissonChangeCommandHandle;
         }
         return createCommandHandle;
     }

@@ -32,9 +32,25 @@ public abstract class BaseCommand implements CommandHandle {
     public abstract void checkCommand(String command) throws Exception;
 
     protected void initDbList() throws NoTableException {
+        dbList = loadDbList(tableName);
+//        String data = null;
+//        try {
+//            data = FileUtil.readFromFile(tableName);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        if(data == null){
+//            throw new NoTableException();
+//        }
+//        dbList = new Gson().fromJson(data, DbList.class);
+    }
+
+    protected DbList loadDbList(String table) throws NoTableException {
+        DbList db;
         String data = null;
         try {
-            data = FileUtil.readFromFile(tableName);
+            data = FileUtil.readFromFile(table);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -42,7 +58,8 @@ public abstract class BaseCommand implements CommandHandle {
         if(data == null){
             throw new NoTableException();
         }
-        dbList = new Gson().fromJson(data, DbList.class);
+        db = new Gson().fromJson(data, DbList.class);
+        return db;
     }
 
 

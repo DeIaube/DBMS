@@ -1,12 +1,14 @@
 package command.impl;
 
+import bean.Item;
 import command.BaseCommand;
+import exception.DeleteKeyException;
 import exception.NoParamException;
 import exception.SyntaxException;
 import util.FileUtil;
+import util.IndexUtil;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by null on 2016/10/9.
@@ -21,25 +23,20 @@ public class AlterDropCommandHandle extends BaseCommand {
             if(!dbList.getItemList().contains(commands[i])){
                 throw new NoParamException();
             }
+            if(commands[i].equals(dbList.getKey())){
+                throw new DeleteKeyException();
+            }
         }
 
         for(int i = 3; i < commands.length; i++){
             List<String> itemList = dbList.getItemList();
-            List<Map<String, String>> dataList = dbList.getDataList();
+            List<Item> dataList = dbList.getDataList();
             String itemName = commands[i];
             itemList.remove(itemName);
-            removeIndex(itemName);
-            for (Map<String, String> map : dataList) {
+            IndexUtil.removeIndex(dbList, itemName);
+            for (Item map : dataList) {
                 map.remove(itemName);
             }
-        }
-    }
-
-    private void removeIndex(String itemName) {
-        if(dbList.getMainIndexName()!=null && dbList.getMainIndexName().equals(itemName)){
-            dbList.removeMainIndex();
-        }else if(dbList.getIndexNameList().contains(itemName)){
-            dbList.removeIndex(itemName);
         }
     }
 

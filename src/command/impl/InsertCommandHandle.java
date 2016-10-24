@@ -1,12 +1,12 @@
 package command.impl;
 
+import bean.Item;
 import command.BaseCommand;
 import exception.ParamException;
 import exception.SyntaxException;
+import util.IndexUtil;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by null on 2016/10/9.
@@ -22,7 +22,7 @@ public class InsertCommandHandle extends BaseCommand {
     @Override
     public void handleCommand(String command) throws Exception {
         initDbList();
-        Map<String, String> map = new HashMap<>();
+        Item map = new Item();
         String key = null;
         String value;
         if(commands[3].equals("values")){
@@ -62,7 +62,10 @@ public class InsertCommandHandle extends BaseCommand {
         }
 
         dbList.addData(map);
+        IndexUtil.addItem(dbList, map);
     }
+
+
 
     @Override
     public void handleEnd() throws Exception {
