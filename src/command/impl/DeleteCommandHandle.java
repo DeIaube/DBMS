@@ -5,7 +5,7 @@ import command.BaseCommand;
 import exception.NoParamException;
 import exception.SyntaxException;
 import util.IndexUtil;
-import util.JudgeUtil;
+import util.judge.JudgeUtil;
 
 import java.util.List;
 

@@ -6,7 +6,7 @@ import command.BaseCommand;
 import exception.NoParamException;
 import exception.NoTableException;
 import exception.SyntaxException;
-import util.JudgeUtil;
+import util.judge.JudgeUtil;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -24,12 +24,11 @@ import java.util.List;
    select * from student,transcript,subject where student.id=transcript.id and transcript.subject=subject.subject and id=1
  */
 public class SelectCommandHandle extends BaseCommand{
-//    2 5
-//    3 5 7
     String rawCommand;
     String finalCommand;
     @Override
     public void handleCommand(String command) throws Exception {
+//        long startTime = System.currentTimeMillis();
         rawCommand = command;
         List<String> keyList = null;
         if(tableName.contains(",")){
@@ -52,6 +51,7 @@ public class SelectCommandHandle extends BaseCommand{
                 keyList.add(s);
             }
         }
+//        System.out.println(System.currentTimeMillis() - startTime);
 
         for (String s : keyList) {
             if(dbList.getKey()!= null && dbList.getKey().equals(s)){
@@ -71,6 +71,9 @@ public class SelectCommandHandle extends BaseCommand{
             }
             System.out.println();
         }
+
+
+
     }
 
     /**
@@ -104,7 +107,6 @@ public class SelectCommandHandle extends BaseCommand{
         for (String tiaojian : duobiaotiaojian) {
             String temp = tiaojian.split("=")[0];
             String key = temp.substring(temp.indexOf(".") + 1, temp.length());
-//            System.out.println(key);
             DbList db1 = dbListLinkedList.removeFirst();
             DbList db2 = dbListLinkedList.removeFirst();
             DbList result = intersection(db1, db2, key);
@@ -155,58 +157,3 @@ public class SelectCommandHandle extends BaseCommand{
         }
     }
 }
-
-
-
-
-
-//public class SelectCommandHandle implements CommandHandle {
-//
-//    @Override
-//    public void handle(String command) throws Exception {
-//        String[] commands = command.split(" ");
-//        if(!commands[2].equals("from")){
-//            throw new SyntaxException();
-//        }
-//
-//
-//        String name = commands[3];
-//        String data = null;
-//        try {
-//            data = FileUtil.readFromFile(name);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//        if(data == null){
-//            throw new NoTableException();
-//        }
-//        DbList dbList = new Gson().fromJson(data, DbList.class);
-//        List<String> keyList;
-//        String key = commands[1];
-//        if(key.equals("*")){
-//            keyList = dbList.getItemList();
-//        }else{
-//            keyList = new ArrayList<>();
-//            for (String s : key.split("\\,")) {
-//                if(!dbList.getItemList().contains(s)){
-//                    throw new NoParamException();
-//                }
-//                keyList.add(s);
-//            }
-//        }
-//        for (String s : keyList) {
-//            System.out.print(s + " ");
-//        }
-//        System.out.println();
-//
-//        List<Map<String, String>> daList = JudgeUtil.judgeEquel(dbList, command);
-//
-//        for (Map<String, String> map : daList) {
-//            for (String s : keyList) {
-//                System.out.print(map.get(s) + " ");
-//            }
-//            System.out.println();
-//        }
-//    }
-//}

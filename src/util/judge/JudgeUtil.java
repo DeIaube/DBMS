@@ -1,4 +1,4 @@
-package util;
+package util.judge;
 
 import bean.DbList;
 import bean.Item;
@@ -63,9 +63,11 @@ public class JudgeUtil {
         return result;
     }
 
+    // > < >= <= !=
     private static List<Item> singleConditionsJudge(DbList dataList, String conditions) {
         List<Item> resule = new ArrayList<>();
-        String[] split = conditions.split("=");
+        JudgeOperate judgeOperate = JudgeHolder.getJudgeOperate(conditions);
+        String[] split = conditions.split(judgeOperate.getOprate());
         String key = split[0];
         String value = split[1];
 
@@ -74,7 +76,7 @@ public class JudgeUtil {
                 //不包含的元素
                 return null;
             }
-            if(stringStringMap.get(key)!=null && stringStringMap.get(key).equals(value)){
+            if(stringStringMap.get(key)!=null && judgeOperate.jedge(stringStringMap.get(key), value)){
                 resule.add(stringStringMap);
             }
 

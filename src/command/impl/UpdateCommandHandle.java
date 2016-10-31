@@ -3,7 +3,8 @@ package command.impl;
 import bean.Item;
 import command.BaseCommand;
 import exception.NoParamException;
-import util.JudgeUtil;
+import util.IndexUtil;
+import util.judge.JudgeUtil;
 
 import java.util.List;
 
@@ -24,11 +25,21 @@ public class UpdateCommandHandle extends BaseCommand {
                 throw new NoParamException();
             }
         }
+
+        for (Item item : updateList) {
+            IndexUtil.removeItem(dbList, item);
+        }
+
         for (String updataData : updataDatas) {
             String[] split = updataData.split("=");
+
             for (Item map : updateList) {
                 map.put(split[0], split[1]);
             }
+        }
+
+        for (Item item : updateList) {
+            IndexUtil.addItem(dbList, item);
         }
     }
 

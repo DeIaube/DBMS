@@ -7,6 +7,8 @@ import exception.NoTableException;
 import util.FileUtil;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by null on 2016/10/21.
@@ -16,6 +18,11 @@ public abstract class BaseCommand implements CommandHandle {
     protected DbList dbList = null;
     protected String tableName = null;
     protected String[] commands = null;
+    protected List<String> cacheCommand;
+
+    public BaseCommand() {
+        cacheCommand = new ArrayList<>();
+    }
 
     @Override
     public void handle(String command) throws Exception {
@@ -33,17 +40,6 @@ public abstract class BaseCommand implements CommandHandle {
 
     protected void initDbList() throws NoTableException {
         dbList = loadDbList(tableName);
-//        String data = null;
-//        try {
-//            data = FileUtil.readFromFile(tableName);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//        if(data == null){
-//            throw new NoTableException();
-//        }
-//        dbList = new Gson().fromJson(data, DbList.class);
     }
 
     protected DbList loadDbList(String table) throws NoTableException {

@@ -20,5 +20,7 @@ public enum Command {
     UPDATE_KEY,
     EXIT,
     CREATE_USER,
-    PERMISSON
+    PERMISSON,
+    TRANSACTION_BEGIN,
+    TRANSACTION_COMMIT
 }

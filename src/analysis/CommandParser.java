@@ -61,6 +61,14 @@ public class CommandParser {
         if(command.startsWith("permisson")){
             return Command.PERMISSON;
         }
+        if(command.startsWith("transaction")){
+            if(command.contains("commit")){
+                return Command.TRANSACTION_COMMIT;
+            }
+            if(command.contains("begin")){
+                return Command.TRANSACTION_BEGIN;
+            }
+        }
         return Command.ERROR;
     }
 }

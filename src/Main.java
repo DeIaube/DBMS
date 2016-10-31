@@ -11,6 +11,8 @@ import util.UserUtil;
  *
  * 测试用例
  *
+ *
+ *
  create table Student(name string, id integer)
 
  insert into Student values (香港记者,1)
@@ -71,6 +73,7 @@ import util.UserUtil;
  select * from student,transcript,subject where student.id=transcript.id and transcript.subject=subject.subject
 
 
+
  create table test(id string key,name string)
  alter drop test (id)
  update test key name
@@ -80,9 +83,14 @@ import util.UserUtil;
 
 
 
+ 用户相关
  create user username password
  permisson user add update
  permisson user drop update
+
+ 事务（未完成）
+ transaction commit
+ transaction begin
 
  *
  *
